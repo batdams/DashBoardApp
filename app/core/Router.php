@@ -11,17 +11,30 @@ class Router
         $this->request = $request;
     }
 
-    public function routing()
+    public function routing($sessionStatus)
     {
-        switch ($this->request) {
-            case '/':
-                require_once 'app/views/mainContents/authentification.php';
-                break;
-            case '/DashBoardApp';
-                require_once 'app/views/mainContents/home.php';
-                break;
-            default:
-                require_once 'app/views/mainContents/notFound.php';
+        if ($sessionStatus) {
+            switch ($this->request) {
+                case '/':
+                    require_once 'app/views/mainContents/home.php';
+                    break;
+                case '/DashBoardApp';
+                    require_once 'app/views/mainContents/home.php';
+                    break;
+                default:
+                    require_once 'app/views/mainContents/notFound.php';
+            }
+        } else {
+            switch ($this->request) {
+                case '/':
+                    require_once 'app/views/mainContents/authentification.php';
+                    break;
+                case '/DashBoardApp';
+                    require_once 'app/views/mainContents/authentification.php';
+                    break;
+                default:
+                    require_once 'app/views/mainContents/notFound.php';
+            }
         }
     }
 }
